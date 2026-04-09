@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0d0b14;
+  --foreground: #f4f4ff;
+  --muted: #b5b6c6;
+  --panel: rgba(22, 17, 36, 0.72);
+  --panel-border: rgba(157, 78, 221, 0.35);
+  --accent: #8a2be2;
+  --accent-2: #9d4edd;
+  --cyan: #3dd9eb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-panel: var(--panel);
+  --color-panel-border: var(--panel-border);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-cyan: var(--cyan);
+  --font-sans: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(138, 43, 226, 0.26), transparent 34%),
+    radial-gradient(circle at 85% 18%, rgba(61, 217, 235, 0.14), transparent 32%),
+    linear-gradient(180deg, #0d0b14 0%, #08060f 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.25;
+  z-index: 2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-pixel {
+  font-family: var(--font-pixel), monospace;
+  letter-spacing: 0.03em;
+}
+
+.pixel-border {
+  border: 2px solid var(--panel-border);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.55) inset,
+    0 0 22px rgba(138, 43, 226, 0.2);
+}
+
+.arcade-button {
+  border: 2px solid rgba(157, 78, 221, 0.9);
+  background: linear-gradient(180deg, rgba(138, 43, 226, 0.32), rgba(138, 43, 226, 0.16));
+  box-shadow:
+    0 6px 0 rgba(89, 35, 130, 0.9),
+    0 0 20px rgba(138, 43, 226, 0.35);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 180ms ease;
+}
+
+.arcade-button:hover {
+  background: linear-gradient(180deg, rgba(157, 78, 221, 0.44), rgba(157, 78, 221, 0.22));
+  transform: translateY(-1px);
+}
+
+.arcade-button:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(89, 35, 130, 0.9), 0 0 14px rgba(138, 43, 226, 0.3);
+}
+
+.terminal-caret {
+  border-right: 2px solid var(--cyan);
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 2.8s steps(40, end) forwards, blink 850ms steps(1, end) infinite;
+}
+
+@keyframes typing {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
